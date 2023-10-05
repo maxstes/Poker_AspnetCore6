@@ -1,0 +1,35 @@
+﻿@model Poker.Models.RegisterViewModel
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h2>Register</h2>
+        <div>
+            <form method="post"  asp-action="Register" asp-controller="Account">
+                <div asp-validation-summary="ModelOnly"></div>
+                    <div>
+                        <label asp-for="FullName"></label>
+                        <input asp-for="FullName" />
+                        <span asp-validation-for="FullName"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" />
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" />
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                    <div>
+                        <label asp-for="PasswordConfirm"></label>
+                        <input asp-for="PasswordConfirm" />
+                        <span asp-validation-for="PasswordConfirm"></span>
+                    </div>
+                    <input type="submit" value="Register" />
+            </form>
+        </div>
+    </body>
+</html>

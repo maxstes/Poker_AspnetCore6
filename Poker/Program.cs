@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Poker.Data;
 using Poker.Models;
+using Poker.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -55,6 +56,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapHub<ChatHub>("/chat");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}");
@@ -65,5 +68,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action}/{id?}"
     );
-
 app.Run();

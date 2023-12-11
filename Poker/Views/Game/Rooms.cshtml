@@ -1,0 +1,14 @@
+﻿@model List<Poker.Models.Game.Room>
+<html>
+    <head>
+
+    </head>
+    <body>
+        @foreach(var room in Model)
+    {
+        <a asp-controller="Game" asp-action="Room" asp-route-idRoom="@room.Id">
+            <p id="roomBlock">@room.Name @room.Description @room.MinBet @room.MaxBet</p>
+        </a>
+    }
+</body>
+</html>

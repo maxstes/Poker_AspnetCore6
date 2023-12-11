@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Poker.Data;
 
@@ -11,9 +12,10 @@ using Poker.Data;
 namespace Poker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231007082650_v2")]
+    partial class v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,9 +244,7 @@ namespace Poker.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Rank")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RoomId")
@@ -266,15 +266,13 @@ namespace Poker.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FreeMisc")
-                        .HasColumnType("int");
 
                     b.Property<int>("MaxBet")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MaxPlayers")
+                    b.Property<int>("MaxPlayers")
                         .HasColumnType("int");
 
                     b.Property<int>("MinBet")
@@ -287,7 +285,7 @@ namespace Poker.Data.Migrations
                     b.Property<int>("PlayersCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("TimeCreatedRoom")
+                    b.Property<DateTime>("TimeCreatedRoom")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

@@ -1,0 +1,20 @@
+﻿@using Poker.Models.Game
+@model Room
+<html>
+    <head>
+
+    </head>
+    <body>
+        
+        <p>Join to game?</p>
+        <button class="choice-button" onclick="location.href='@Url.Action("Yes","Play")'">Yes</button> <br />
+        <button class="choice-button" onclick="location.href='@Url.Action("No","Play")'">No</button>
+            
+        
+        <div class="PlayersInRoom">
+            <p>Players:</p>
+            <p>"Name - @Model.Name <br /> Description - @Model.Description"</p> <br />
+        </div>
+        
+    </body>
+</html>

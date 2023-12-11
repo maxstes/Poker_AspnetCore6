@@ -1,4 +1,4 @@
-﻿namespace Poker.Models
+﻿namespace Poker.Models.Auth
 {
     public class RoleConst
     {

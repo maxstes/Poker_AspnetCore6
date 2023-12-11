@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Poker.Models
+namespace Poker.Models.Auth
 {
     public class ChangeRoleModel
     {

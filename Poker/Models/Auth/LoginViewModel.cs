@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Poker.Models
+namespace Poker.Models.Auth
 {
     public class LoginViewModel
     {

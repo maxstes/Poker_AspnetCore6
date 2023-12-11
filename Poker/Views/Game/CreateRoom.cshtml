@@ -1,0 +1,39 @@
+﻿@model Poker.Models.Game.Room
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h2>Create Room:</h2>
+        <form asp-controller="Game" asp-action="CreateRoom" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+            <div>
+                <label asp-for="Name"></label>
+                <input asp-for="Name"/>
+                <span asp-validation-for="Name"></span>
+            </div>
+             <div>
+                <label asp-for="Description"></label>
+                <input asp-for="Description" />
+                <span asp-validation-for="Description"></span>
+             </div>
+             <div>
+                <label asp-for="MinBet"></label>
+                <input asp-for="MinBet" />
+                <span asp-validation-for="MinBet"></span>
+             </div>
+             <div>
+                 <label asp-for="MaxBet"></label>
+                 <input asp-for="MaxBet" />
+                 <span asp-validation-for="MaxBet"></span>
+             </div>
+             <div>
+                 <label asp-for="MaxPlayers"></label>
+                 <input asp-for="MaxPlayers" />
+                 <span asp-validation-for="MaxPlayers"></span>
+             </div>
+             
+             <input type="submit" value="Create" />
+        </form>
+    </body>
+</html>

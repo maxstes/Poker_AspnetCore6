@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  background-color:darkseagreen;
 }
 
 @media (min-width: 768px) {
@@ -14,5 +15,30 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: darkseagreen;
 }
+footer {
+    background-color:aliceblue;
+}
+
+#roomBlock {
+    border: 0.5px solid black;
+    
+}
+.choice-button {
+    height:30px;
+    width:70px;
+    margin-bottom:20px;
+}
+img-fon {
+    min-height: 100%;
+    min-width: 640px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    margin-top: 60px;
+    top: 0px;
+    left: 0;
+    opacity: 0.2;
+    z-index: -1;

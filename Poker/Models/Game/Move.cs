@@ -1,11 +1,11 @@
 ﻿namespace Poker.Models.Game
 {
-    public class Move
+    public static class Move
     {
-        public string Fold { get; set; }
-        public int Check { get; set; }
-        public int Bet { get; set; }
-        public int Call { get; set; }
-        public int Rais { get; set; }
+        public static string? Fold { get; set; } = "Fold";
+        public static string? Check { get; set; } = "Check";
+        public static string? Bet { get; set; } = "Bet";
+        public static string? Call { get; set; } = "Call";
+        public static string? Rais { get; set; } = "Rais";
     }
 }

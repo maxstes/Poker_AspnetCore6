@@ -6,6 +6,7 @@ namespace Poker.Controllers
 {
     public class GameController : Controller
     {
+        readonly PlayServices _playServices = new();
         readonly RoomAdapter _roomAdapter = new ();
         [HttpGet]
         public IActionResult Index()
@@ -45,8 +46,11 @@ namespace Poker.Controllers
         [HttpGet("/Room")]
         public IActionResult Room(int idRoom)
         {
-            var room = _roomAdapter.GetRoom(idRoom).Result;
-            return View(room); 
+            string? UserName = User.Identity.Name;
+            int UserId = _roomAdapter.GetIdUser(UserName);
+            var PlayersOnline = _playServices.GetPlayersOnline(UserId, idRoom);
+            //TODO create list players (collection) to view
+            return View(PlayersOnline); 
         }
     }
 }

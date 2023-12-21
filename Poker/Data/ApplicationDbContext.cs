@@ -9,12 +9,14 @@ namespace Poker.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-        {
-           // Database.EnsureCreated();
+        { 
+           
         }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {//Database.EnsureCreated();
+            
+        {
+           // Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -25,6 +27,7 @@ namespace Poker.Data
 
         //}
         public DbSet<Room> Room { get; set; } = null!;
-        public DbSet<Players> Players { get; set; } = null!;
+        public DbSet<Player> Player { get; set; } = null!;
+        public DbSet<PlayerOnline> PlayerOnline { get; set; } = null!;
     }
 }

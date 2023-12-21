@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
 
     <h2>List Roles</h2>
     <table class="table">
@@ -16,5 +16,6 @@
         </tr>
     }
 </table>
+<a asp-action="AddDefaultRoles" asp-controller="Roles">Add default roles</a>
 <a asp-action="Create" asp-controller="Roles">Add role</a>
 <a asp-action="UserList" asp-controller="Roles">List users</a>

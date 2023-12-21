@@ -1,14 +1,24 @@
 ﻿using Poker.Models.Cards;
 using Poker.Models.Cards.Enums;
+using Poker.Services.Interface;
 
 namespace Poker.Services
 {
-    public class Deck
+    public class Deck 
     {
         private List<Card> cards;
         public Deck()
         {
             cards = GenerateDeck();
+        }
+        public List<Card> GetCards(int number)
+        {
+            List<Card> cards = new List<Card>();
+            for (int i = 0; i < number; i++)
+            {
+                cards.Add(DealCard());
+            }
+            return cards;
         }
         private List<Card> GenerateDeck()
         {

@@ -1,20 +1,14 @@
 ﻿@using Poker.Models.Game
-@model Room
-<html>
-    <head>
-
-    </head>
-    <body>
-        
+@model PlayerOnline      
         <p>Join to game?</p>
-        <button class="choice-button" onclick="location.href='@Url.Action("Yes","Play")'">Yes</button> <br />
-        <button class="choice-button" onclick="location.href='@Url.Action("No","Play")'">No</button>
-            
-        
+        <div class="alert-dark">
+    @Html.ActionLink("Yes","Yes","Play",new { userId = Model.PlayerId,roomId = Model.RoomId })
+    @Html.ActionLink("No","No","Play")
+    </div>
+       
+    
         <div class="PlayersInRoom">
             <p>Players:</p>
-            <p>"Name - @Model.Name <br /> Description - @Model.Description"</p> <br />
+            @Model.Player.Name
         </div>
         
-    </body>
-</html>

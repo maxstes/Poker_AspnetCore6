@@ -34,6 +34,20 @@ namespace Poker.Services
             
             return result;
         }
+        //TODO Прибрати це звідци
+        public int GetIdUser(string name)
+        {
+            var Id = _context.Player
+                .Where(x => x.Name == name)
+                .Select(x => x.Id)
+                .FirstOrDefault();
+            return Id;
+        }
+        public void AddPlayer(Player players)
+        {
+            _context.Player.Add(players);
+            _context.SaveChanges();
+        }
 
     }
 }

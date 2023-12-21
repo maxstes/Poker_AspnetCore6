@@ -7,7 +7,8 @@
         @foreach(var room in Model)
     {
         <a asp-controller="Game" asp-action="Room" asp-route-idRoom="@room.Id">
-            <p id="roomBlock">@room.Name @room.Description @room.MinBet @room.MaxBet</p>
+            <p id="roomBlock">RoomName:@room.Name RoomDescription: @room.Description
+               MinBet @room.MinBet MaxBet: @room.MaxBet</p>
         </a>
     }
 </body>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Poker.Data;
 
@@ -11,9 +12,10 @@ using Poker.Data;
 namespace Poker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231214083251_v5")]
+    partial class v5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,16 +229,13 @@ namespace Poker.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Poker.Models.Game.Player", b =>
+            modelBuilder.Entity("Poker.Models.Game.Players", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("Balance")
-                        .HasColumnType("int");
 
                     b.Property<int>("Experience")
                         .HasColumnType("int");
@@ -252,10 +251,10 @@ namespace Poker.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Player");
+                    b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("Poker.Models.Game.PlayerOnline", b =>
+            modelBuilder.Entity("Poker.Models.Game.PlayersOnline", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -263,19 +262,26 @@ namespace Poker.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("PlayerId")
+                    b.Property<int>("Experience")
                         .HasColumnType("int");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rank")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
-
                     b.HasIndex("RoomId");
 
-                    b.ToTable("PlayerOnline");
+                    b.ToTable("PlayersOnline");
                 });
 
             modelBuilder.Entity("Poker.Models.Game.Room", b =>
@@ -367,21 +373,13 @@ namespace Poker.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Poker.Models.Game.PlayerOnline", b =>
+            modelBuilder.Entity("Poker.Models.Game.PlayersOnline", b =>
                 {
-                    b.HasOne("Poker.Models.Game.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Poker.Models.Game.Room", "Room")
                         .WithMany("Players")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Player");
 
                     b.Navigation("Room");
                 });

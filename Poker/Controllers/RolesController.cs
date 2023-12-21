@@ -14,7 +14,14 @@ namespace Secret_Santa_MVC.Controllers
             _roleManager = roleManager;
             _userManager = userManager;
         }
+        public async Task<IActionResult> AddDefaultRoles()
+        {
+            await Create("Member");
+            await Create("Admin");
+            await Create("Administrator");
 
+            return Ok();
+        }
         public IActionResult Index() => View(_roleManager.Roles.ToList());
 
         public IActionResult Create() => View();

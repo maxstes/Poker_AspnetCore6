@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Poker.Models;
 using Poker.Models.Auth;
+using Poker.Models.Game;
+using Poker.Services;
 
 namespace Poker.Controllers
 {
@@ -10,6 +12,7 @@ namespace Poker.Controllers
         readonly UserManager<ApplicationUser> _userManager;
         readonly SignInManager<ApplicationUser> _signInManager;
         readonly ILogger<AccountController> _logger;
+        readonly RoomAdapter _roomAdapter = new();
         public AccountController(ILogger<AccountController> logger,UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager)
         {
             _userManager  = userManager;
@@ -41,6 +44,9 @@ namespace Poker.Controllers
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, RoleConst.Member);
+                //TODO Create normal
+                Player Player = new Player { Name = user.UserName };
+                _roomAdapter.AddPlayer(Player);
                 await _signInManager.SignInAsync(user, false);
                 _logger.LogInformation($"User: {model.Email} {result} register");
                 return RedirectToAction("Index", "Home");

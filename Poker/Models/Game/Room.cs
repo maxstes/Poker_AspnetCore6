@@ -13,7 +13,7 @@ public class Room
     public int MinBet { get; set; } = 1;
     public int MaxBet { get; set; } = 1000;
     public int PlayersCount { get; set; }
-    public List<Players>? Players { get; set; }
+    public List<PlayerOnline>? Players { get; set; }
     public int? MaxPlayers { get; set; } = 10;
     public int? FreeMisc { get; set; }
     public DateTime? TimeCreatedRoom { get; set; }

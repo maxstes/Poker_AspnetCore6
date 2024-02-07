@@ -4,46 +4,70 @@ using Poker.Models.Cards;
 using Poker.Services;
 using Poker.Models.Enums;
 using Poker.Models.Cards.Enums;
+using Poker.Models.Game;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Poker.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TestController : ControllerBase
+    public class TestController : Controller
     {
+        readonly CombinationSelection selection = new();
+        readonly CookiesService cookiesService;
+        readonly Deck deck = new ();
+        readonly FinishService finish;
+
+        public TestController(CookiesService _cookiesService, FinishService finish)
+        {
+            cookiesService = _cookiesService;
+            this.finish = finish;
+        }
+        public IActionResult GetUserCard()
+        {
+            string cookiesKeyCards = "1";
+            var session = HttpContext.Session;
+            var firstplayer = deck.GetPlayersCard();
+            cookiesService.AddCookiesCards(cookiesKeyCards, firstplayer, session);
+            var Card = cookiesService.GetCookiesCards(cookiesKeyCards, session);
+            return Ok(Card);
+        }
+        public void CardsCookiesTest()
+        {
+            var session = HttpContext.Session;
+            deck.Shuffle();
+            var secondplayer = deck.GetPlayersCard();
+            var threesplayer = deck.GetPlayersCard();
+            var table = deck.GetTableCard();
+
+            cookiesService.AddCookiesCards("2", secondplayer, session);
+            cookiesService.AddCookiesCards("3", threesplayer, session);
+            cookiesService.AddCookiesCards("4", table, session);
+
+            var mas1 = cookiesService.GetCookiesCards("1", session);
+            var mas2 = cookiesService.GetCookiesCards("2", session);
+            var mas3 = cookiesService.GetCookiesCards("4",session);
+
+            var list = new List<Card>();
+            
+            list.AddRange(mas1);list.AddRange(mas2);list.AddRange(mas3);
+            
+            foreach(var m in list)
+            {
+                Console.WriteLine(m.ToString());
+            }
+
+           // return View();
+        }
+
 
         [HttpGet("/TestDeck")]
-        public IActionResult Index()
+        public IActionResult Room(int RoomId,int PlayerId)
         {
-            List<Card> MyCards = new List<Card>();
-            List<Card> OponentCards = new List<Card>();
-            List<Card> TablesCards = new List<Card>();
-            //List<Card> MyTablesCards = new List<Card>()
-            //{ new Card(SuitEnum.Diamonds ,RankEnum.King),
-            // new Card(SuitEnum.Diamonds ,RankEnum.Queen),
-            //new Card(SuitEnum.Diamonds ,RankEnum.Jack),
-            //new Card(SuitEnum.Diamonds,RankEnum.Ace),
-            //new Card(SuitEnum.Diamonds,RankEnum.Ten;
-            Deck deck = new Deck();
-            deck.Shuffle();
 
-            MyCards = deck.GetCards(2);
-            OponentCards = deck.GetCards(2);
-            TablesCards = deck.GetCards(5);
-
-            List<Card> FullCards = new List<Card>();
-            FullCards.AddRange(MyCards);
-            FullCards.AddRange(TablesCards);
-
-            CombinationSelection selection = new CombinationSelection(FullCards);
-            selection.WriteCardsPlayers(FullCards, "My");
-            FullCards.Clear();
-            FullCards.AddRange(OponentCards); FullCards.AddRange(TablesCards);
-            CombinationSelection selection1 = new CombinationSelection(FullCards);
-            selection.WriteCardsPlayers(FullCards, "Enemy");
-            Console.WriteLine($"My {selection.GetBestCombination()}");
-            Console.WriteLine($"Oponent {selection1.GetBestCombination()}");
-            return Ok();
+            return View();
+        }
+        public void Final()
+        {
+            finish.Finish();
         }
     }
 }

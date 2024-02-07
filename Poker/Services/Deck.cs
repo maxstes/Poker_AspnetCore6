@@ -1,17 +1,16 @@
 ﻿using Poker.Models.Cards;
 using Poker.Models.Cards.Enums;
 using Poker.Services.Interface;
+using System.Runtime.Serialization.Formatters;
 
 namespace Poker.Services
 {
     public class Deck 
     {
         private List<Card> cards;
-        public Deck()
-        {
-            cards = GenerateDeck();
-        }
-        public List<Card> GetCards(int number)
+
+     
+        private List<Card> GetCards(int number)
         {
             List<Card> cards = new List<Card>();
             for (int i = 0; i < number; i++)
@@ -19,6 +18,14 @@ namespace Poker.Services
                 cards.Add(DealCard());
             }
             return cards;
+        }
+        public List<Card> GetTableCard()
+        {
+            return GetCards(5);
+        }
+        public List<Card> GetPlayersCard()
+        {
+            return GetCards(2);
         }
         private List<Card> GenerateDeck()
         {
@@ -34,6 +41,7 @@ namespace Poker.Services
         }
         public void Shuffle()
         {
+            cards = GenerateDeck();
             Random rng = new Random();
             int n = cards.Count;
             while (n > 1)
@@ -55,6 +63,13 @@ namespace Poker.Services
             Card dealtCard = cards[cards.Count - 1];
             cards.RemoveAt(cards.Count - 1);
             return dealtCard;
+        }
+        public void DealCard( List<Card> cardsList)
+        {
+            foreach(Card card in cardsList)
+            {
+                cards.Remove(card);
+            }
         }
         public void AddCard(Card card)
         {

@@ -6,8 +6,13 @@ namespace Poker.Controllers
 {
     public class GameController : Controller
     {
-        readonly PlayServices _playServices = new();
-        readonly RoomAdapter _roomAdapter = new ();
+        readonly PlayServices _playServices;
+        readonly RoomAdapter _roomAdapter;
+        public GameController(PlayServices playServices,RoomAdapter roomAdapter)
+        {
+            _playServices = playServices;
+            _roomAdapter = roomAdapter;
+        }
         [HttpGet]
         public IActionResult Index()
         {
@@ -18,7 +23,7 @@ namespace Poker.Controllers
         [HttpGet("/Rooms")]
         public IActionResult Rooms()
         {
-            var model = _roomAdapter.GetRooms().Result;
+            var model = _roomAdapter.GetRoomsAsync().Result;
             return View(model);
         }
 
@@ -46,9 +51,8 @@ namespace Poker.Controllers
         [HttpGet("/Room")]
         public IActionResult Room(int idRoom)
         {
-            string? UserName = User.Identity.Name;
-            int UserId = _roomAdapter.GetIdUser(UserName);
-            var PlayersOnline = _playServices.GetPlayersOnline(UserId, idRoom);
+            string? UserName = User.Identity?.Name;
+            var PlayersOnline = _playServices.GetPlayersInRoom(UserName, idRoom).Result;
             //TODO create list players (collection) to view
             return View(PlayersOnline); 
         }

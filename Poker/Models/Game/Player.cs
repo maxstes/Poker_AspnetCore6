@@ -1,4 +1,6 @@
-﻿namespace Poker.Models.Game
+﻿using Poker.Data.Entities;
+
+namespace Poker.Models.Game
 {
     public class Player
     {
@@ -8,6 +10,5 @@
         public int Experience { get; set; }
         public string? Rank { get; set; }
         public int? Balance { get; set; }
-
     }
 }

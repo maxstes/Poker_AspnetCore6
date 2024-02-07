@@ -15,7 +15,21 @@ namespace Poker.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            string? EmailSession = HttpContext.Session.GetString("Email");
+            string? Email = User.Identity.Name;
+
+            if (string.IsNullOrEmpty(EmailSession))
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    HttpContext.Session.SetString("Email", Email!);
+                    return View(Email as object);
+                }
+
+                return View("Guest" as object);
+
+            }
+            return View(EmailSession as object);
         }
 
         public IActionResult Privacy()

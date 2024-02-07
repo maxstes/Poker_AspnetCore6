@@ -1,4 +1,4 @@
-﻿using Poker.Models.Game;
+﻿using Poker.Data.Entities;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,7 +6,7 @@ namespace Poker.Models.Game;
 
 public class Room
 {
-   //TODO забабахать подписи
+   //TODO підписати
     public int Id { get; set; }
     public string Name { get; set; }
     public string? Description { get; set; }
@@ -17,4 +17,5 @@ public class Room
     public int? MaxPlayers { get; set; } = 10;
     public int? FreeMisc { get; set; }
     public DateTime? TimeCreatedRoom { get; set; }
+    public List<GameEntity> GamesEntity { get; set; } = new();
 }

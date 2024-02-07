@@ -1,17 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Poker.Data;
 using Poker.Models.Game;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Poker.Services
 {
     public class RoomAdapter
     {
-        readonly ApplicationDbContext _context;
-        public RoomAdapter()
-        {
-            _context = new ApplicationDbContext();
-        }
-        public async Task<List<Room>> GetRooms()
+        readonly ApplicationDbContext _context = new ();
+        public async Task<List<Room>> GetRoomsAsync()
         {
             List<Room> Rooms = await _context.Room.ToListAsync();
             return Rooms;
@@ -34,20 +31,11 @@ namespace Poker.Services
             
             return result;
         }
-        //TODO Прибрати це звідци
-        public int GetIdUser(string name)
+        public async Task AddPlayer(Player players)
         {
-            var Id = _context.Player
-                .Where(x => x.Name == name)
-                .Select(x => x.Id)
-                .FirstOrDefault();
-            return Id;
+            await _context.Player.AddAsync(players);
+            await _context.SaveChangesAsync();
         }
-        public void AddPlayer(Player players)
-        {
-            _context.Player.Add(players);
-            _context.SaveChanges();
-        }
-
+        
     }
 }

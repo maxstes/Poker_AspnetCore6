@@ -9,7 +9,7 @@ namespace Poker.SignalR
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
             await Clients.All.SendAsync("Notify",$"{userName} enter in group {groupName}");
         }
-        public async Task SendMessage(string message,string userName,string groupName)
+        public async Task SendMessageAsync(string message,string userName,string groupName)
         {
             await Clients.Group(groupName).SendAsync("Receive",message,userName);
         }
